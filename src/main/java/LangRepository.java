@@ -1,17 +1,15 @@
-import java.util.ArrayList;
-import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import java.util.Optional;
 
 public class LangRepository {
-    private List<Lang> languages;
-
-    public LangRepository() {
-        this.languages = new ArrayList<>();
-        this.languages.add(new Lang(1L,"Hello","en"));
-        this.languages.add(new Lang(2L,"Siemanko","pl"));
-    }
-    Optional<Lang> findById(Long id)
+    Optional<Lang> findById(Integer id)
     {
-        return languages.stream().filter(l->l.getId().equals(id)).findFirst();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        Lang result = session.get(Lang.class, id);
+        transaction.commit();
+        session.close();
+        return Optional.ofNullable(result);
     }
 }
