@@ -14,7 +14,7 @@ public class HelloServiceTest {
         HelloService SUT = new HelloService(mockRepository);
         String name=null;
         //when
-        String result = SUT.prepareGreeting(name,"-1");
+        String result = SUT.prepareGreeting(name,-1);
         assertEquals(WELCOME+" "+HelloService.FALLBACK_NAME+"!",result);
     }
 
@@ -25,7 +25,7 @@ public class HelloServiceTest {
         HelloService SUT = new HelloService(mockRepository);
         String name="test";
         //when
-        String result = SUT.prepareGreeting(name,"-1");
+        String result = SUT.prepareGreeting(name,-1);
         assertEquals("Hello "+name+"!",result);
     }
     @Test
@@ -38,6 +38,7 @@ public class HelloServiceTest {
         String result = SUT.prepareGreeting(null,null);
         assertEquals(FALLBACK_ID_WELCOME+" "+HelloService.FALLBACK_NAME+"!",result);
     }
+    /*
     @Test
     public void test_prepareGreeting_textLang_returnsGreetingWithFallbackIdLang(){
         //given
@@ -48,6 +49,8 @@ public class HelloServiceTest {
         String result = SUT.prepareGreeting(null,"abc");
         assertEquals(FALLBACK_ID_WELCOME+" "+HelloService.FALLBACK_NAME+"!",result);
     }
+    */
+
     @Test
     public void test_prepareGreeting_nonExisting_returnsGreetingWithFallbackLang()
     {
@@ -60,7 +63,7 @@ public class HelloServiceTest {
         HelloService SUT = new HelloService(mockRepository);
 
         //when
-        String result = SUT.prepareGreeting(null,"-1");
+        String result = SUT.prepareGreeting(null,-1);
         //then
         assertEquals(HelloService.FALLBACK_LANG.getWelcomeMsg()+" "+HelloService.FALLBACK_NAME+"!",result);
     }

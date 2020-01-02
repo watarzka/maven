@@ -9,28 +9,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "Lang", urlPatterns = {"/api/langs"})
-public class LangServlet extends HttpServlet {
+@WebServlet(name = "Todo", urlPatterns = {"/api/todos/*"})
+public class TodoServlet extends HttpServlet {
 
     private final Logger logger = LoggerFactory.getLogger(LangServlet.class);
     private ObjectMapper mapper;
-    private LangService service;
+    private TodoRepository repository;
 
-    LangServlet(LangService service,ObjectMapper mapper)
+    TodoServlet(TodoRepository repository,ObjectMapper mapper)
     {
-        this.service=service;
+        this.repository=repository;
         this.mapper=mapper;
     }
     /*servlet container needs it */
     @SuppressWarnings("unused")
-    public LangServlet(){
-        this(new LangService(), new ObjectMapper());
+    public TodoServlet(){
+        this(new TodoRepository(), new ObjectMapper());
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Got request with parameters"+req.getParameterMap());
         resp.setContentType("application/json;charset=UTF-8");
-        mapper.writeValue(resp.getOutputStream(),service.findAll());
+        mapper.writeValue(resp.getOutputStream(),repository.findAll());
 
     }
 }
+
