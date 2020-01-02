@@ -1,0 +1,1 @@
+insert into todos (text, done) values ('Undone todo', 0);
